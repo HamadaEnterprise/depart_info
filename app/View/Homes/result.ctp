@@ -1,0 +1,1 @@
+<p><?php echo $hoge; ?>結果</p>
