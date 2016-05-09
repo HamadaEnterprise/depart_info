@@ -27,7 +27,7 @@
  */
 	//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/', array('controller' => 'homes', 'action' => 'index'));
-	Router::connect('/getSogoYokohama', array('controller' => 'homes', 'action' => 'getSogoYokohamaInfo'));
+	//Router::connect('/getSogoYokohama', array('controller' => 'homes', 'action' => 'getSogoYokohamaInfo'));
 	Router::connect('/getIsetan', array('controller' => 'homes', 'action' => 'startGetIsetanData'));
 	Router::connect('/getMitsukoshi', array('controller' => 'homes', 'action' => 'startGetMitsukoshiData'));
 	Router::connect('/getTakashimaya', array('controller' => 'homes', 'action' => 'startGetTakashimayaData'));
@@ -40,6 +40,9 @@
 	Router::connect('/getSeibu', array('controller' => 'homes', 'action' => 'startGetSeibu'));
 	Router::connect('/categorize', array('controller' => 'homes', 'action' => 'categorize'));
 	Router::connect('/getAllEvents', array('controller' => 'homes', 'action' => 'getAllEvents'));
+	Router::connect('/getEventInfoTimeStamp', array('controller' => 'homes', 'action' => 'getEventInfoTimeStamp'));
+	Router::connect('/getSogo', array('controller' => 'homes', 'action' => 'startGetSogo'));
+	Router::connect('/departDetail', array('controller' => 'Departs', 'action' => 'departDetail'));
 
 
 /**

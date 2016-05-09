@@ -5,7 +5,7 @@ class DayDetailController extends AppController {
 		'EventInfo'
 	);
 	public function index() {
-		$this->set("naviType","top");
+		$this->set("naviType","calendar");
 		$day = $_GET['day'];
 		$month = $_GET['month'];
 
@@ -14,12 +14,6 @@ class DayDetailController extends AppController {
 				'conditions' => array('start_month' => $month,'start_day' => $day )
 				)
 			);
-
-
 		$this->set(compact('month', 'day', 'events'));
-		/*echo "<pre>";
-		print_r($events);
-		echo "</pre>";
-		exit;*/
 	}
 }

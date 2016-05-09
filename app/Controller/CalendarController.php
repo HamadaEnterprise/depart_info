@@ -12,15 +12,24 @@ class CalendarController extends AppController {
 	public function index() {
 		//ナビゲーションの設定
 		$this->set("naviType","calendar");
-		$this->set('month',$_GET['month'].' month');
-		echo $_GET['month'].' month';
-		exit;
+		$getMonth = $_GET['month'];
+		
+		$thisMonth = "";
+		$maxDay = "";
+		if($getMonth == "this"){
+			$thisMonth = date('n');
+			$maxDay = "+0 month";
+		}elseif($getMonth == "next"){
+			$thisMonth = date('n', strtotime('+1 month'));
+			$maxDay = "+1 month";
+		}elseif($getMonth == "last"){
+			$thisMonth = date('n', strtotime('-1 month'));
+			$maxDay = "-1 month";
+		}
 		//カレンダーの設定
 		$weekday = array( '日', '月', '火', '水', '木', '金', '土' );
 		$this->set(compact("weekday"));
-		$thisMonth = date('n');
 		//催事情報の設定
-
 		$selectedCategory = array(0,1,2,3);
 		$selectedRegion = array(0,1,2,3,4);
 		if($this->request->isPost()){
@@ -64,7 +73,7 @@ class CalendarController extends AppController {
 		foreach ($categories as $key => $category) {
 			$sortedCategories[$category['Category']['id']] = $category['Category']['name'];
 		}
-		$this->set(compact('sortedEvents', 'thisMonth', 'sortedCategories', 'selectedCategory', 'sortedRegion', 'selectedRegion'));
+		$this->set(compact('sortedEvents', 'thisMonth', 'sortedCategories', 'selectedCategory', 'sortedRegion', 'selectedRegion', 'maxDay'));
 
 	}
 }

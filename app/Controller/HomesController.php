@@ -15,16 +15,42 @@ class HomesController extends AppController {
 		'Depart',
 		'EventInfo',
 		'Category',
-		'Region'
+		'Region',
+		'SalesRegion'
 	);
 
 	public function index() {
 		$this->set('naviType', 'top');
+		$todayTimestamp = time();
+		$events = $this->EventInfo->find('all',
+			array(
+				'conditions' => array('start_timestamp <' => $todayTimestamp, 'end_timestamp >' => $todayTimestamp, 'EventInfo.is_deleted' => 0),
+				)
+			);
+		$freeImages = $this->Depart->find('all',
+			array(
+				'conditions' => array('wiki_url' => null, 'is_deleted' => 0)
+				)
+			);
+		$regionAllAndTokyo = array('全国', '東京');
+		$latestStatisticsDate = 201603;
+		$oneYearAgoStatistics = $latestStatisticsDate - 100;
+		$salesRegion = $this->SalesRegion->find('all',
+			array(
+				'fields' => array($latestStatisticsDate, 'salesRegion.name', $oneYearAgoStatistics),
+				'conditions' => array('name' => $regionAllAndTokyo)
+				)
+			);
+		/*echo "<pre>";
+		print_r($salesRegion);
+		echo "</pre>";
+		exit;*/
+		$this->set(compact('events', 'freeImages', 'salesRegion', 'latestStatisticsDate'));
 
 	}
 
 	public function getAllEvents(){
-		$this->getSogoYokohamaInfo();
+		$this->startGetSogo();
 		$this->startGetIsetanData();
 		$this->startGetMitsukoshiData();
 		$this->startGetTakashimayaData();
@@ -45,9 +71,7 @@ class HomesController extends AppController {
 		foreach ($seibuData as $key => $eachSeibu) {
 			$this->getSeibuAnchor($eachSeibu);
 		}
-
-		
-
+	
 	}
 
 	public function getSeibuAnchor($seibuData){
@@ -71,11 +95,19 @@ class HomesController extends AppController {
 		$crawler = $client->request('GET', $Anchor);
 		$name = $crawler->filter('.articleTtl01')->text();
 		$eventInfo = array();
-		$crawler->filter('#tenpoMainInner .marB10')->each(function($element,$key)use(&$eventInfo, &$Anchor, &$name, &$seibuData){
-			if($key == 1){
+		$crawler->filter('#tenpoMainInner .sectionRead')->each(function($element,$key)use(&$eventInfo, &$Anchor, &$name, &$seibuData){
+			if($key == 0){
 				$date = $element->text();
+				$date = preg_replace('/[\r\t]/', '', $date);
+				//echo $date;
 				$date = explode("\n", $date);
-				$daysArray = $this->getDayMonth($date[0]);
+				foreach($date as $eachDate){
+					if(strstr($eachDate, '会期')){
+						$date = $eachDate;
+						break;
+					}
+				}			
+				$daysArray = $this->getDayMonth($date);
 				array_shift($daysArray);
 				$eachEvent = $this->setDays($daysArray, $seibuData);
 				$eachEvent['name'] = $name;
@@ -85,61 +117,57 @@ class HomesController extends AppController {
         });
         $this->saveData($eventInfo);
 	}
+	public function startGetSogo(){
+		$sogoData = array();
+		array_push($sogoData, array('url' => 'https://www.sogo-seibu.jp/yokohama/topics/?tenpo_id=511&topic_id=340' , 'departId' => '27', 'companyId' => '4', 'styleId' => '6',));
+		foreach ($sogoData as $key => $eachSogo) {
+			$this->getSogoAnchor($eachSogo);
+		}
+	
+	}
 
-
-	public function getSogoYokohamaInfo(){
-		$this->set("hoge", "成功かな？");
-		$this->set("naviType", "top");
-
+	public function getSogoAnchor($sogoData){
 		$client = new Client();	
 		$client->setClient(new \GuzzleHttp\Client([
   		  \GuzzleHttp\RequestOptions::VERIFY => false,
 			]));
-		$crawler = $client->request('GET','https://www.sogo-seibu.jp/yokohama/kakutensublist/?article_seq=9704030');
+		$crawler = $client->request('GET', $sogoData['url']);
 		
-		$eventInfo = array();
-		$crawler->filter('.sectionRead font')->each(function($v,$key)use(&$eventInfo){
-            $str = preg_replace('/[^0-9]/', ' ', $v->text());
-            $str = preg_replace('/\s(?=\s)/', '', $str);
-            $str = trim($str);
-            $daysArray = split(' ', $str);
-            if(count($daysArray) == 4){
-            	$eventInfo[$key]['start_month'] = $daysArray[0]; 
-            	$eventInfo[$key]['start_day'] = $daysArray[1]; 
-            	$eventInfo[$key]['end_month'] = $daysArray[2]; 
-            	$eventInfo[$key]['end_day'] = $daysArray[3]; 
-            }elseif(count($daysArray) == 3){
-            	$eventInfo[$key]['start_month'] = $daysArray[0]; 
-            	$eventInfo[$key]['start_day'] = $daysArray[1]; 
-            	$eventInfo[$key]['end_month'] = $daysArray[0]; 
-            	$eventInfo[$key]['end_day'] = $daysArray[2]; 
-            }
+		$crawler->filter('.listInner')->each(function($element,$key)use(&$sogoData){
+			$Anchor = $element->filter('a')->attr('href');
+			$Anchor = 'https://www.sogo-seibu.jp' . $Anchor;
+			$this->getSogo($sogoData, $Anchor);
         });
 
-		$compareBeforeName ="";
-		$nameCounter = 0;
-        $crawler->filter('.sectionRead strong')->each(function($v,$key)use(&$compareBeforeName, &$eventInfo, &$nameCounter){
-        	if($compareBeforeName !== $v->text() && mb_substr($v->text() , 0, 1) == "・"){  	
-	        	$compareBeforeName = $v->text();
-	            $replacedEventName = str_replace("・", "", $v->text());
-	            $eventInfo[$nameCounter]['name'] = $replacedEventName;
-	            $eventInfo[$nameCounter]['depart_id'] = 27;
-	            $eventInfo[$nameCounter]['company_id'] = 4;
-	            $eventInfo[$nameCounter]['style_id'] = 6;
-	            $eventInfo[$nameCounter]['event_url'] = 'https://www.sogo-seibu.jp/yokohama/kakutensublist/?article_seq=9704030';
-	            $nameCounter++;
-	        }
+	}
+
+	public function getSogo($sogoData, $Anchor){
+		$client = new Client();	
+		$client->setClient(new \GuzzleHttp\Client([\GuzzleHttp\RequestOptions::VERIFY => false,]));
+		$crawler = $client->request('GET', $Anchor);
+		$name = $crawler->filter('.articleTtl01')->text();
+		$eventInfo = array();
+		$crawler->filter('#tenpoMainInner .sectionRead')->each(function($element,$key)use(&$eventInfo, &$Anchor, &$name, &$sogoData){
+			if($key == 0){
+				$date = $element->text();
+				$date = str_replace(array('\r\n','\r','\n'), '\n', $date);
+				$date = preg_split("/\R/", trim($date));
+				$daysArray = $this->getDayMonth($date[0]);
+				if(strlen($daysArray[0]) > 2){
+					array_shift($daysArray);
+				}	
+				$eachEvent = $this->setDays($daysArray, $sogoData);
+				if($eachEvent){
+					$eachEvent['name'] = $name;
+					$eachEvent['event_url'] = $Anchor;
+					array_push($eventInfo, $eachEvent);
+				}
+				
+			}
         });
-       	
-        foreach($eventInfo as $key=>$data){
-        	$this->EventInfo->create();
-        	$eventName = $this->EventInfo->findByName($data['name']);
-        	if($eventName){
-        		$data['id'] = $eventName['EventInfo']['id'];
-        	}
-			$this->EventInfo->save($data);
-        }
-		$this->render('result');
+        if(count($eventInfo) != 0){
+        	$this->saveData($eventInfo);	
+        }     
 	}
 
 	public function startGetTokyu(){
@@ -152,8 +180,6 @@ class HomesController extends AppController {
 		foreach ($tokyuData as $key => $eachTokyu) {
 			$this->getTokyu($eachTokyu);
 		}
-
-		
 
 	}
 	function getTokyu($tokyuData){
@@ -255,10 +281,13 @@ class HomesController extends AppController {
 					if($name != "会場準備" && $name != "催物準備"){
 						$str =  $element->find('dt')[0]->plaintext;
 						$str = preg_replace('/[0-9]時/', '', $str);
+						//エスケープ文字を削除
+						$str = preg_replace('/\&.*;/','',$str);
 			            $daysArray = $this->getDayMonth($str);
-
-			            $eachEvent = array();
 						$eachEvent = $this->setDays($daysArray, $mitsukoshiData);
+						if(!$eachEvent){
+							continue;
+						}
 			            $eachEvent['name'] = $name;
 					
 						$beforeName = $name;
@@ -274,10 +303,9 @@ class HomesController extends AppController {
 			for($i = 0; $i < $mitsukoshiData['minEventNumber']; $i++ ){
 				unset($eventInfo[$i]);
 			}
-			$this->saveData($eventInfo);
 		}
+		$this->saveData($eventInfo);
 		//$this->render('result');
-		
 	}
 	public function startGetTakashimayaData(){
 		$takashimayaData = array();
@@ -575,6 +603,7 @@ class HomesController extends AppController {
 
 	function setDays($daysArray, $departData){
 		$eachEvent = array();
+		
 		if(count($daysArray) == 4){
         	$eachEvent['start_month'] = $daysArray[0]; 
         	$eachEvent['start_day'] = $daysArray[1]; 
@@ -588,6 +617,21 @@ class HomesController extends AppController {
         }else{
         	return null;
         }
+        $thisMonth = date('m');
+		$thisYear = date('Y');
+		$nextYear = date('Y', strtotime('+1 year'));
+		$startyear;
+		$endYear;
+		if($eachEvent['start_month'] <= $eachEvent['end_month']){
+			$startYear = $thisYear;
+			$endYear = $thisYear;
+		}else{
+			$startYear = $nextYear;
+			$endYear = $nextYear;
+		}
+		
+		$eachEvent['start_year'] = $startYear;
+		$eachEvent['end_year'] = $endYear;
         $eachEvent['depart_id'] = $departData['departId'];
         $eachEvent['company_id'] = $departData['companyId'];
         $eachEvent['style_id'] = $departData['styleId'];
@@ -607,7 +651,28 @@ class HomesController extends AppController {
 	}
 
 	function endKey($array){
-    end($array);
-    return key($array);
+	    end($array);
+	    return key($array);
+	}
+	function getEventInfoTimeStamp(){
+		$events = $this->EventInfo->find('all',
+			array(
+				'conditions' => array('EventInfo.is_deleted' => 0)
+				)
+			);
+		
+		$updatedEvents = array();
+		foreach($events as $event){
+			$startTimeStamp = mktime(0,0,0,$event['EventInfo']['start_month'],$event['EventInfo']['start_day'],$event['EventInfo']['start_year']);
+			$endTimeStamp = mktime(0,0,0,$event['EventInfo']['end_month'],$event['EventInfo']['end_day'],$event['EventInfo']['end_year']);
+			$event['EventInfo']['start_timestamp'] = $startTimeStamp;
+			$event['EventInfo']['end_timestamp'] = $endTimeStamp;
+			array_push($updatedEvents, $event['EventInfo']);
+		}
+		/*echo "<pre>";
+		print_r($updatedEvents);
+		echo "</pre>";*/
+		$this->saveData($updatedEvents);
+		exit;
 	}
 }
