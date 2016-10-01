@@ -42,7 +42,12 @@
 	Router::connect('/getAllEvents', array('controller' => 'homes', 'action' => 'getAllEvents'));
 	Router::connect('/getEventInfoTimeStamp', array('controller' => 'homes', 'action' => 'getEventInfoTimeStamp'));
 	Router::connect('/getSogo', array('controller' => 'homes', 'action' => 'startGetSogo'));
+	Router::connect('/getKeio', array('controller' => 'homes', 'action' => 'startGetKeio'));
+	Router::connect('/getKeioSakuragaoka', array('controller' => 'homes', 'action' => 'startGetKeioSakuragaoka'));
 	Router::connect('/departDetail', array('controller' => 'Departs', 'action' => 'departDetail'));
+	//Router::connect('/admin/entryEvent', array('controller' => 'Admin', 'action' => 'entryEvent'));
+	Router::connect('/IOSController', array('controller' => 'IOS', 'action' => 'index'));
+	Router::connect('/IOSController/todaysEvents', array('controller' => 'IOS', 'action' => 'todaysEvents'));
 
 
 /**

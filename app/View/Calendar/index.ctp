@@ -1,5 +1,4 @@
-<h5>カレンダーから探す</h5>
-<div class="col-sm-9 leftContent">
+<div class="col-sm-10 leftContent">
 	<h4><?php echo $thisMonth ?>月開催の催事</h4>
 		<div class="row">
 		<div class = "monthNav col-sm-6">
@@ -52,9 +51,17 @@
 	</table>
 </div>
 
-<div class="col-sm-3 rightContent">
-	<h4>広告</h4>
-	
+<div class="col-sm-2 rightContent">
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- departInfo -->
+	<ins class="adsbygoogle"
+	     style="display:block;margin-top: 100px;"
+	     data-ad-client="ca-pub-2860154430701982"
+	     data-ad-slot="1212603155"
+	     data-ad-format="auto"></ins>
+	<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 	
 </div>
 <script type="text/javascript">

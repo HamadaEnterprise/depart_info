@@ -46,12 +46,24 @@ class DepartsController extends AppController {
 				)
 			);
 
+		$rss = simplexml_load_file($selectedDepart['Depart']['rss_url']);
+		foreach($rss->channel->item as $item){
+		$title = $item->title;
+		$date = date("Y年 n月 j日", strtotime($item->pubDate));
+		$link = $item->link;
+		$description = mb_strimwidth (strip_tags($item->description), 0 , 50, "…Read More", "utf-8");
 
+		//preg_match('/<img.*>/i', $item->description, $entryimg);
+		/*preg_match('/<img.*?src=(["\'])(.+?)\1.*?>/i', $item->description, $entryimg);
+
+		print_r($entryimg[2]) ;
+		exit;*/
 
 		/*echo "<pre>";
 		print_r($selectedDepart);
 		echo "</pre>";
 		exit;*/
 		$this->set(compact('selectedDepart', 'selectedDepartEvents'));
+		}
 	}
 }

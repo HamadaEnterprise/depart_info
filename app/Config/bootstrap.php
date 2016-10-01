@@ -109,4 +109,11 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+CakeLog::config('depart_log', array(
+	'engine' => 'File',
+	'types' => array('depart_log'),
+	'file' => 'depart_log',
+));
+
 CakePlugin::load(array('TwitterBootstrap'));

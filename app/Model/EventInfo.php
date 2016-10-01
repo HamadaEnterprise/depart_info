@@ -18,4 +18,5 @@ class EventInfo extends AppModel {
                               'foreignKey' => 'depart_id'
                         )
                       );
+    
 }

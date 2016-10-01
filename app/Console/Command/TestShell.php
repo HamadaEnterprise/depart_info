@@ -1,16 +1,11 @@
-<?php
-
-
+<?php 
 App::import('Vendor', 'simple_html_dom');
 //App::import('Vendor', 'goutte.phar');
 //App::import('Vendor', 'phpQuery-onefile');
 require_once 'goutte.phar';
 use Goutte\Client;//スラッシュではない。\マーク。
 use Symfony\Component\DomCrawler\Crawler;
-
-
-class HomesController extends AppController {
-
+class TestShell extends AppShell { 
 	public $uses = array(
 		'Depart',
 		'EventInfo',
@@ -19,48 +14,19 @@ class HomesController extends AppController {
 		'SalesRegion',
 		'SalesRegionYearOnYear',
 		'SalesItem',
-		'SalesItemYearOnYear',
-		'Blog'
+		'SalesItemYearOnYear'
 	);
-	//Homeのトップページを表示します			
-	public function index() {
-		$this->set('naviType', 'top');
-		//現在開催中の催事の取得
-		$todayTimestamp = time();
-		$events = $this->EventInfo->find('all',
-			array(
-				'conditions' => array('start_timestamp <' => $todayTimestamp, 'end_timestamp >' => $todayTimestamp, 'EventInfo.is_deleted' => 0),
-				'order' => array('style_id' => 'asc')
-				)
-			);
-		//権利フリーな画像一覧を取得します
-		$freeImages = $this->Depart->find('all',
-			array(
-				'conditions' => array('wiki_url' => null, 'is_deleted' => 0)
-				)
-			);
+	function main () {
+		//$this->log('hogehoge','depart_log');
+		$this->getAllEvents(); 
+		//$this->out('test.'); // 標準出力には $this->out() を利用。 
+	} 
+	 
+	 function test2 () { 
+	    $this->out('test2.'); // 標準出力には $this->out() を利用。 
+	 }
 
-		//ホームに表示する地域、全国と東京を配列で持っておく
-		$regionAllAndTokyo = array('month', '全国', '東京');
-		
-		//地域ごとの売上を表示する
-		$salesRegion = $this->SalesRegion->find('first',
-			array(
-				'order' => array('SalesRegion.month' =>'desc')
-				)
-			);
-		//特集記事のタイトルを取得する	
-		$blogs = $this->Blog->find('all', array(
-				'order' => array('date' => 'desc'),
-				'fields' => array('title', 'id','date'),
-				'limit' => 5
-			));
-
-		$this->set(compact('events', 'freeImages', 'salesRegion', 'salesRegionYear', 'blogs'));
-
-	}
-
-	public function getAllEvents(){
+ 	public function getAllEvents(){
 		$this->startGetSogo();
 		$this->startGetIsetanData();
 		$this->startGetMitsukoshiData();
@@ -129,7 +95,7 @@ class HomesController extends AppController {
 				array_push($eventInfo, $eachEvent);
 			}
         });
-        $this->saveData($eventInfo);
+        $this->saveData($eventInfo, '池袋西武');
 	}
 	public function startGetSogo(){
 		$sogoData = array();
@@ -180,7 +146,7 @@ class HomesController extends AppController {
 			}
         });
         if(count($eventInfo) != 0){
-        	$this->saveData($eventInfo);	
+        	$this->saveData($eventInfo, 'そごう横浜');	
         }     
 	}
 
@@ -220,7 +186,7 @@ class HomesController extends AppController {
             
         });
 
-        $this->saveData($eventInfo);
+        $this->saveData($eventInfo, '東急');
 		
 	}
 
@@ -256,7 +222,7 @@ class HomesController extends AppController {
             array_push($eventInfo, $eachEvent);
 		}
 		
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '伊勢丹');
 
 	}
 
@@ -317,8 +283,7 @@ class HomesController extends AppController {
 				unset($eventInfo[$i]);
 			}
 		}
-		$this->saveData($eventInfo);
-		//$this->render('result');
+		$this->saveData($eventInfo, '三越');
 	}
 	public function startGetTakashimayaData(){
 		$takashimayaData = array();
@@ -367,7 +332,7 @@ class HomesController extends AppController {
             array_push($eventInfo, $eachEvent);
 		}
 
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '高島屋');
 		
 	}
 	public function startGetJfrontData(){
@@ -405,7 +370,7 @@ class HomesController extends AppController {
 			}
 			array_push($eventInfo, $eachEvent);
 		}
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '大丸松坂屋');
 	}
 	public function startGetOdakyu(){
 		$odakyuData = array();
@@ -444,10 +409,10 @@ class HomesController extends AppController {
 				$beforeName = $name;
 				array_push($eventInfo, $eachEvent);
 			}
-			$this->saveData($eventInfo);
+			//$this->saveData($eventInfo, '小田急');
 			
 		}
-		//$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '小田急');
 	}
 	public function startGetkeikyu(){
 		$keikyuData = array();
@@ -479,7 +444,7 @@ class HomesController extends AppController {
 			array_push($eventInfo, $eachEvent);
 
 		}
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '京急');
 	}
 
 	public function startGetMatsuya(){
@@ -488,6 +453,7 @@ class HomesController extends AppController {
 		foreach ($matsuyaData as $key => $eachOdakyu) {
 			$this->getMatsuya($eachOdakyu);
 		}
+
 		
 	}
 
@@ -507,13 +473,8 @@ class HomesController extends AppController {
 			if($element->find('a')){
 				$url = $element->find('a')[0]->href;
 			}
-			if(count($dateNameArray) < 2){
-				continue;
-			}
 
 			$daysArray = $this->getDayMonth($dateNameArray[0]);
-			
-
 			//年号を消す
 			array_shift($daysArray);
 
@@ -527,9 +488,8 @@ class HomesController extends AppController {
 			}
 			array_push($eventInfo, $eachEvent);
 		}
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '松屋');
 	}
-
 
 	function startGetKeio(){
 		$keioData = array();
@@ -564,11 +524,7 @@ class HomesController extends AppController {
 				}
 			}
 		}
-		/*echo "<pre>";
-		print_r($eventInfo);
-		echo "</pre>";
-		exit;*/
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo,'京王百貨店新宿店');
 	}
 
 	function startGetKeioSakuragaoka(){
@@ -608,7 +564,7 @@ class HomesController extends AppController {
 				}
 			}
 		}
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '京王聖蹟桜ヶ丘');
 	}
 	
 	public function startGetTobu(){
@@ -649,7 +605,7 @@ class HomesController extends AppController {
 
 			array_push($eventInfo, $eachEvent);
 		}
-		$this->saveData($eventInfo);
+		$this->saveData($eventInfo, '東武');
 	}
 
 	function categorize(){
@@ -738,8 +694,8 @@ class HomesController extends AppController {
         return $eachEvent;
 	}
 
-	function saveData($eventInfo){
-		
+	function saveData($eventInfo, $departName){
+		$totalAffectedRows = 0;
 		foreach($eventInfo as $data){
         	$this->EventInfo->create(false);
         	$eventName = $this->EventInfo->findByName($data['name']);
@@ -747,9 +703,10 @@ class HomesController extends AppController {
         		$data['id'] = $eventName['EventInfo']['id'];
         	}
 			$this->EventInfo->save($data);
-			//$count = $this->EventInfo->getAffectedRows();
-			//echo '更新件数は' . $count . '件でした';
+			$count = $this->EventInfo->getAffectedRows();
+			$totalAffectedRows += $count;
     	}
+    	$this->log($departName. 'の更新件数は'. $totalAffectedRows. "でした\n", 'depart_log');
 	}
 
 	function endKey($array){
@@ -771,6 +728,10 @@ class HomesController extends AppController {
 			$event['EventInfo']['end_timestamp'] = $endTimeStamp;
 			array_push($updatedEvents, $event['EventInfo']);
 		}
-		$this->saveData($updatedEvents);
+		/*echo "<pre>";
+		print_r($updatedEvents);
+		echo "</pre>";*/
+		$this->saveData($updatedEvents, 'タイムスタンプ更新');
+		exit;
 	}
 }

@@ -4,6 +4,12 @@
 	    background: url("images/<?php echo $freeImages[rand(0,count($freeImages))]['Depart']['image_url'] ?>") center 0 no-repeat;
 	    background-size: cover;
 	}
+	li{
+		list-style: none;
+	}
+	.blog{
+		font-size: 120%
+	}
 </style>
 </div>
 <div class="jumbotron">
@@ -11,13 +17,31 @@
 </div>
 <div class="container">
 <div class="col-sm-7 leftContent">
+	<div>
+	<h4>特集記事</h4>
+	<?php foreach($blogs as $blog): ?>
+		<ul>
+			<li class = "blog">-<?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
+		</ul>
+	<?php endforeach; ?>
+	</div>
+
 	<h4>現在開催中の催事</h4>
+	<?php $currentDepart = ""; ?>
 	<?php foreach ($events as $key => $event): ?>
+		<?php if($currentDepart != $event['Depart']['name']): ?>
+		<p class="depart-title">--<?php echo  $event['Depart']['name'];?>--</p>
+		<?php $currentDepart = $event['Depart']['name'];?>
+		<?php endif; ?>
 		<a href="<?php echo $event['EventInfo']['event_url'] ?>" target="_blank"><?php echo $event['EventInfo']['name']; ?></a>
-		<span class="endDate">(~<?php echo $event['EventInfo']['end_month'] ?>/<?php echo $event['EventInfo']['end_day']; ?>まで</span>
-		<a href="<?php echo $event['Depart']['url']; ?>" target="_blank">@<?php echo $event['Depart']['name']; ?>)</a>
+		<span class="endDate">(~<?php echo $event['EventInfo']['end_month'] ?>/<?php echo $event['EventInfo']['end_day']; ?>まで)</span>
 		<br>
 	<?php endforeach; ?>
+	
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 </div>
 <div class="col-sm-5 rightContent">
 	<div class="departSales">
@@ -26,7 +50,7 @@
 			<tbody>
 				<tr>
 					<td rowspan="2"></td>
-					<th class="text-center" colspan="2"><?php echo substr($latestStatisticsDate,0,4) ?>年<?php echo substr($latestStatisticsDate,5,2); ?>月</th>
+					<th class="text-center" colspan="2"><?php echo substr($salesRegion['SalesRegion']['month'],0,4) ?>年<?php echo substr($salesRegion['SalesRegion']['month'],5,2); ?>月</th>
 				</tr>
 				<tr>
 					<th class="text-center">売上</th>
@@ -34,29 +58,42 @@
 				</tr>
 				<tr>
 					<td>全国</td>
-					<td><?php echo number_format($salesRegion[0]['SalesRegion'][$latestStatisticsDate]) ?>円</td>
-					<td><?php echo number_format(($salesRegion[0]['SalesRegion'][$latestStatisticsDate] / $salesRegion[0]['SalesRegion'][$latestStatisticsDate-100] - 1) * 100,1) ?>%</td>
+					<td><?php echo number_format($salesRegion['SalesRegion']['全国']) ?>円</td>
+					<td><?php echo $salesRegion['SalesRegionYearOnYear']['全国']?>%</td>
 				</tr>
 				<tr>
 					<td>東京</td>
-					<td><?php echo number_format($salesRegion[1]['SalesRegion'][$latestStatisticsDate]) ?>円</td>
-					<td><?php echo number_format(($salesRegion[1]['SalesRegion'][$latestStatisticsDate] / $salesRegion[1]['SalesRegion'][$latestStatisticsDate-100] - 1) * 100,1) ?>%</td>
+					<td><?php echo number_format($salesRegion['SalesRegion']['東京']) ?>円</td>
+					<td><?php echo $salesRegion['SalesRegionYearOnYear']['東京']?>%</td>
 				</tr>
 			</tbody>
 		</table>
+		<span class="note">※店舗数調整後　（　）が調整前 <a href="/statistics">もっとみる</a></span>
 	</div>
-	<h4>百貨店TOPニュース</h4>
+	<h4 style="clear:both;">百貨店TOPニュース</h4>
 	
 	<ul id="feed"></ul>
-	
+	<div id = "twitter">
+		<a class="twitter-timeline" data-width="300" data-height="800" data-theme="light" href="https://twitter.com/departinformat1/lists/departs">A Twitter List by departinformat1</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+	</div>
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- departInfo -->
+	<div id = "ad">
+		<ins class="adsbygoogle"
+		     style="display:block"
+		     data-ad-client="ca-pub-2860154430701982"
+		     data-ad-slot="1212603155"
+		     data-ad-format="auto"></ins>
+	</div>
 </div>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load("feeds", "1");
 function initialize() {
 	var feedurl = "https://news.google.com/news?ned=us&ie=UTF-8&oe=UTF-8&q=%E7%99%BE%E8%B2%A8%E5%BA%97&output=rss&num=30&hl=ja";
 	var feed = new google.feeds.Feed(feedurl);
-	feed.setNumEntries(10);
+	feed.setNumEntries(12);
 	feed.load(function (result){
 		if (!result.error){
 			var imageRss = "";
@@ -65,14 +102,10 @@ function initialize() {
 				var entry = result.feed.entries[i];
 				var imgsrc = entry.content.match(/src="(.*?)"/igm);
 				if(imgsrc){
-					imageRss += '<div class = "media"><a class = "media-left" href="' + entry.link + '" target="_blank"><img ' + imgsrc + '></a><div class = "media-body">' + entry.title + '</div></div>';
-					console.log(imageRss);
+					imageRss += '<div class = "media"><a class = "media-left" href="' + entry.link + '" target="_blank"><img ' + imgsrc + '></a><div class = "media-body"><a class = "media-left" href="' + entry.link + '" target="_blank">' + entry.title + '</a></div></div>';
 				}else{
 					imageLessRss += '<li><a href="' + entry.link + '" target="_blank">' + entry.title + '</a></li>';
 				}
-                
-         
-				
 			}
 			$('#feed').append(imageRss);
 			$('#feed').append(imageLessRss);			

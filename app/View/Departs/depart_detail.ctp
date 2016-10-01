@@ -29,26 +29,37 @@
 <div class="col-sm-5 rightContent">
 	<h4><?php echo $selectedDepart['Depart']['name'] ?>TOPニュース</h4>
 	
-	<ul id="feed"></ul>
+	<ul id="feed">
+   <?php
+      $rss = simplexml_load_file($selectedDepart['Depart']['rss_url']);
+      $imageNews="";
+      $stringNews="";
+      foreach($rss->channel->item as $item){
+        $title = $item->title;
+        $date = date("Y年 n月 j日", strtotime($item->pubDate));
+        $link = $item->link;
+        $description = mb_strimwidth (strip_tags($item->description), 0 , 50, "…Read More", "utf-8");
+
+        preg_match('/<img.*?src=(["\'])(.+?)\1.*?>/i', $item->description, $entryimg);
+        $src = null;
+        if(isset($entryimg[2]))$src = $entryimg[2];
+       
+
+
+        if($src){
+          $imageNews = $imageNews . '<div class = "media"><a class = "media-left" href="' . $link . '" target="_blank"><img src="' . $src . '" alt=""></a><div class = "media-body"><a href="' . $link . '">' . $title. ' </a></div></div>';
+        }else{
+          $stringNews = $stringNews . '<li><a href="' . $link . '" target="_blank"><span class="title">' . $title. ' ; ?></span></a></li>';
+        }
+     }
+     echo $imageNews . $stringNews;
+      ?>
+     
+      
+      
+
+  </ul>
 	
 </div>
-<script type="text/javascript">
-google.load("feeds", "1");
-function initialize() {
-	var feedurl = "<?php echo $selectedDepart['Depart']['rss_url'] ?>";
-	var feed = new google.feeds.Feed(feedurl);
-	feed.setNumEntries(15);
-	feed.load(function (result){
-		if (!result.error){
-			for (var i = 0; i < result.feed.entries.length; i++) {
-				var entry = result.feed.entries[i];
-				var title = '<li><a href="' + entry.link + '" target="_blank">' + entry.title + '</a></li>';
-				//var conte = '<li>' + entry.contentSnippet + '</li>';
-				//var dates = '<li>' + entry.publishedDate + '</li>';
-				$('#feed').append(title);
-			}
-		}
-	});
-}
-google.setOnLoadCallback(initialize);
-</script>
+
+  
