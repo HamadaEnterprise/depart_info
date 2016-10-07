@@ -13,7 +13,7 @@
 </style>
 </div>
 <div class="jumbotron">
-  <h1>デパートまとめ</h1>
+  <h1>デパート情報百貨</h1>
 </div>
 <div class="container">
 <div class="col-sm-7 leftContent">
