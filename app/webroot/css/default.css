@@ -81,3 +81,24 @@ body{
 .navbar{
 	height:68px;
 }
+
+.latest-blogs{
+	margin-top: 20px;
+}
+.recent-blogs ul,.past-blogs ul{
+	padding-left:10px;
+	border-bottom:1px dotted;
+}
+
+.articleDate{
+	margin-top: 10px;
+}
+
+.blog-rankings table{
+	border-collapse: separate;
+	border-spacing: 15px;
+}
+.blog-rankings-table{
+	border-collapse: separate;
+	border-spacing: 15px 5px;
+}

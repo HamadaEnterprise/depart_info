@@ -10,6 +10,12 @@
 	.blog{
 		font-size: 120%
 	}
+	ul{
+		padding-left: 0;
+	}
+	#twitter{
+		margin-left: 0;
+	}
 </style>
 </div>
 <div class="jumbotron">
@@ -70,6 +76,17 @@
 		</table>
 		<span class="note">※店舗数調整後　（　）が調整前 <a href="/statistics">もっとみる</a></span>
 	</div>
+	<div class = "ad">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- 横長スモール -->
+		<ins class="adsbygoogle"
+		     style="display:inline-block;width:320px;height:100px"
+		     data-ad-client="ca-pub-2860154430701982"
+		     data-ad-slot="7020132753"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
 	<h4 style="clear:both;">百貨店TOPニュース</h4>
 	
 	<ul id="feed"></ul>
@@ -78,7 +95,7 @@
 	</div>
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- departInfo -->
-	<div id = "ad">
+	<div class = "ad">
 		<ins class="adsbygoogle"
 		     style="display:block"
 		     data-ad-client="ca-pub-2860154430701982"

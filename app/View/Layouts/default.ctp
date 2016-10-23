@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
+	<meta name="google-site-verification" content="R5GY4ONzEG1-mxUE769ypqvgzzdpZTEEFm4cCfPA1A4" />
 	<script src="<?php echo $this->Html->url('/js/jquery-1.12.3.min.js'); ?>"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<?php echo $this->Html->script('bootstrap.min'); ?>
@@ -21,6 +22,16 @@
 echo $this->fetch('meta');
 echo $this->fetch('css');
 ?>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80445148-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 </head>
 
@@ -39,8 +50,8 @@ echo $this->fetch('css');
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">Top<span class="sr-only">(current)</span></a></li>
-					<li <?php if($naviType=="calendar"):?>class="active"<?php endif;?>><a href="/calendar?month=this">Calendar</a></li>
+					<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">トップ<span class="sr-only">(current)</span></a></li>
+					<li <?php if($naviType=="calendar"):?>class="active"<?php endif;?>><a href="/calendar?month=this">催事カレンダー</a></li>
 					<li <?php if($naviType=="statistics"):?>class="active"<?php endif;?>><a href="/statistics">統計情報</a></li>
 					<li <?php if($naviType=="departs"):?>class="active"<?php endif;?>><a href="/departs" title="">掲載デパート一覧</a></li>
 					<li <?php if($naviType=="blog"):?>class="active"<?php endif;?>><a href="/blog" title="">特集記事</a></li>
