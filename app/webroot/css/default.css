@@ -102,3 +102,7 @@ body{
 	border-collapse: separate;
 	border-spacing: 15px 5px;
 }
+.blog-image-small{
+	width: 120px;
+	height: 120px;
+}

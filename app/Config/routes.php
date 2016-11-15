@@ -48,7 +48,7 @@
 	//Router::connect('/admin/entryEvent', array('controller' => 'Admin', 'action' => 'entryEvent'));
 	Router::connect('/IOSController', array('controller' => 'IOS', 'action' => 'index'));
 	Router::connect('/IOSController/todaysEvents', array('controller' => 'IOS', 'action' => 'todaysEvents'));
-
+	Router::connect('/IOSController/xmlTest', array('controller' => 'IOS', 'action' => 'xmlTest'));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

@@ -56,6 +56,10 @@ class HomesController extends AppController {
 				'limit' => 5
 			));
 
+		//タイトル設定
+		$this->set('title_for_layout', 'デパート情報百貨｜百貨店キュレーションサイト');
+		$this->set('description','百貨店の催事情報、売上、プレスリリースをまとめて掲載。百貨店ファンへのおすすめ情報から従業員の方の欲しかった情報がここに');
+
 		$this->set(compact('events', 'freeImages', 'salesRegion', 'salesRegionYear', 'blogs'));
 
 	}

@@ -19,15 +19,15 @@
 </style>
 </div>
 <div class="jumbotron">
-  <h1>デパート情報百貨</h1>
+  <h1>デパート情報百貨｜百貨店キュレーションサイト</h1>
 </div>
 <div class="container">
 <div class="col-sm-7 leftContent">
-	<div>
-	<h4>特集記事</h4>
+	<div class="panel panel-default">
+	<div class="panel-heading"><h4>特集記事</h4></div>
 	<?php foreach($blogs as $blog): ?>
-		<ul>
-			<li class = "blog">-<?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
+		<ul class="list-group">
+			<li class = "blog list-group-item">-<?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
 		</ul>
 	<?php endforeach; ?>
 	</div>

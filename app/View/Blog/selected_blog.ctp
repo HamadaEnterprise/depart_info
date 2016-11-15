@@ -72,5 +72,6 @@
 		display: inline;
 		margin-bottom: 10px;
 	}
+	
 
 </style>

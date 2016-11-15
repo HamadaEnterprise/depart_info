@@ -33,4 +33,17 @@ class IOSController extends AppController{
 		exit;
 
 	}
+
+	public function xmlTest(){
+		$querytag = "https://news.google.com/news?ned=us&ie=UTF-8&oe=UTF-8&q=%E7%99%BE%E8%B2%A8%E5%BA%97&output=rss&num=30&hl=ja";
+		$gxml = simplexml_load_file($querytag, NULL, LIBXML_NOCDATA);
+		$json = json_encode($gxml, JSON_UNESCAPED_SLASHES);
+		echo $json;
+		// foreach ($gxml->channel->item as $item) {
+		//     echo $item->title;
+		//     echo "<br>";
+		//     echo $item->description;
+		// }
+		exit;
+	}
 }

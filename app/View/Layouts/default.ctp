@@ -7,7 +7,7 @@
 	</title>
 	<link rel="icon" type="image/png" href="/images/shopping_icon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
+	<meta name="description" content="<?php if(isset($description)){echo $description;} ?>">
 	<meta name="author" content="">
 	<meta name="google-site-verification" content="R5GY4ONzEG1-mxUE769ypqvgzzdpZTEEFm4cCfPA1A4" />
 	<script src="<?php echo $this->Html->url('/js/jquery-1.12.3.min.js'); ?>"></script>
