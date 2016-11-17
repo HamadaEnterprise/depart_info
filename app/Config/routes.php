@@ -49,6 +49,7 @@
 	Router::connect('/IOSController', array('controller' => 'IOS', 'action' => 'index'));
 	Router::connect('/IOSController/todaysEvents', array('controller' => 'IOS', 'action' => 'todaysEvents'));
 	Router::connect('/IOSController/xmlTest', array('controller' => 'IOS', 'action' => 'xmlTest'));
+	Router::connect('/IOSController/googleNews', array('controller' => 'IOS', 'action' => 'getGoogleNews'));
 
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

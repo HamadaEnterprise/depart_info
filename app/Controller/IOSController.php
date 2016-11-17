@@ -35,6 +35,25 @@ class IOSController extends AppController{
 
 	}
 
+	public function getGoogleNews(){
+		$googleNews = $this->GoogleNews->find('all', array(
+				'order' => array('GoogleNews.id desc', 'image_src asc'),
+				'limit' => 30
+			));
+
+		$googleNews = Set::extract('/GoogleNews/.', $googleNews);
+		$sort;
+		foreach($googleNews as $key => $value){
+			$sort[$key] = $value['image_src'];
+		}
+		array_multisort($sort,SORT_DESC, SORT_STRING, $googleNews);
+
+		header('content-type: application/json; charset=utf-8');
+		echo(json_encode($googleNews,JSON_UNESCAPED_UNICODE));
+		exit;
+
+	}
+
 	public function xmlTest(){
 		$url = "https://news.google.com/news?ned=us&ie=UTF-8&oe=UTF-8&q=%E7%99%BE%E8%B2%A8%E5%BA%97&output=rss&num=30&hl=ja";
 
@@ -50,7 +69,7 @@ class IOSController extends AppController{
 			
 			$item['description'] = $description;
 			if(isset($result[1])){
-				$item['image_src'] = "http:" . $result[1];
+				$item['image_src'] = "https:" . $result[1];
 			}
 			
 			$this->GoogleNews->create();
