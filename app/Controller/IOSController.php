@@ -82,4 +82,37 @@ class IOSController extends AppController{
 		}
 		exit;
 	}
+
+	public function calendar(){
+
+		$thisMonth = date('n');
+		$events = $this->EventInfo->find('all',
+			array(
+				'conditions' => array('start_month' => $thisMonth, 'EventInfo.is_deleted' => 0),
+				'order' => array('start_day' =>'asc')
+				)
+			);
+
+		$events = Set::extract('/EventInfo/.', $events);
+
+		$sortedEvents = array();
+
+		foreach ($events as $key => $event) {
+			if(isset($sortedEvents[$event['start_day']])){
+				array_push($sortedEvents[$event['start_day']], $events[$key]);
+			}else{
+				$sortedEvents[$event['start_day']] = array();
+				array_push($sortedEvents[$event['start_day']], $events[$key]);
+
+			}
+		}
+
+		// echo "<pre>";
+		// print_r($sortedEvents);
+		// echo "</pre>";
+
+		header('content-type: application/json; charset=utf-8');
+		echo(json_encode($sortedEvents,JSON_UNESCAPED_UNICODE));
+		exit;
+	}
 }
