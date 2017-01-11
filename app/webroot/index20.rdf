@@ -1,0 +1,114 @@
+<<<RSS
+        <?xml version="1.0" encoding="utf-8" ?>
+        <rss version="2.0">
+            <channel>
+                <title>$title</title>
+                <link>$url</link>
+                <description>$description</description>
+                <language>ja</language>
+                RSS<item>
+<title>９月第５週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=4</link>
+<description>９月第５週まとめ</description>
+<pubDate>Sat, 01 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>記事について</title>
+<link>http://depart-info.com/blog/selectedBlog?id=5</link>
+<description>記事について</description>
+<pubDate>Fri, 30 Sep 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>１０月第１週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=6</link>
+<description>１０月第１週まとめ</description>
+<pubDate>Sat, 08 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>そごう・西武でクラウドファンディング</title>
+<link>http://depart-info.com/blog/selectedBlog?id=7</link>
+<description>そごう・西武でクラウドファンディング</description>
+<pubDate>Wed, 12 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>１０月第２週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=8</link>
+<description>１０月第２週まとめ</description>
+<pubDate>Sun, 16 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>１０月第３週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=10</link>
+<description>１０月第３週まとめ</description>
+<pubDate>Sat, 22 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>2016年9月全国百貨店売上高速報！</title>
+<link>http://depart-info.com/blog/selectedBlog?id=11</link>
+<description>2016年9月全国百貨店売上高速報！</description>
+<pubDate>Sat, 29 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>１０月第４週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=12</link>
+<description>１０月第４週まとめ</description>
+<pubDate>Sun, 30 Oct 2016 00:00:00 +0200</pubDate>
+</item>
+<item>
+<title>１１月第１週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=13</link>
+<description>１１月第１週まとめ</description>
+<pubDate>Sun, 06 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>11月第2週百貨店ニュースまとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=14</link>
+<description>11月第2週百貨店ニュースまとめ</description>
+<pubDate>Sun, 13 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>販売員が全員スタイリストに！今年のコートはスタイリングで打ち出します（そごう・西武）</title>
+<link>http://depart-info.com/blog/selectedBlog?id=15</link>
+<description>販売員が全員スタイリストに！今年のコートはスタイリングで打ち出します（そごう・西武）</description>
+<pubDate>Fri, 18 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>11月第3週百貨店ニュースまとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=16</link>
+<description>11月第3週百貨店ニュースまとめ</description>
+<pubDate>Sun, 20 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>全国百貨店２０１６年１０月売上速報</title>
+<link>http://depart-info.com/blog/selectedBlog?id=17</link>
+<description>全国百貨店２０１６年１０月売上速報</description>
+<pubDate>Thu, 24 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>１１月第４週百貨店ニュースまとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=18</link>
+<description>１１月第４週百貨店ニュースまとめ</description>
+<pubDate>Sun, 27 Nov 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>１２月第１週百貨店ニュースまとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=19</link>
+<description>１２月第１週百貨店ニュースまとめ</description>
+<pubDate>Sat, 03 Dec 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>百貨店ニュース12月第2週まとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=20</link>
+<description>百貨店ニュース12月第2週まとめ</description>
+<pubDate>Sat, 10 Dec 2016 00:00:00 +0100</pubDate>
+</item>
+<item>
+<title>１２月第３週百貨店ニュースまとめ</title>
+<link>http://depart-info.com/blog/selectedBlog?id=21</link>
+<description>１２月第３週百貨店ニュースまとめ</description>
+<pubDate>Sun, 18 Dec 2016 00:00:00 +0100</pubDate>
+</item>
+<<<RSS
+            </channel>
+        </rss>
+        RSS

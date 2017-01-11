@@ -23,14 +23,12 @@
 </div>
 <div class="container">
 <div class="col-sm-7 leftContent">
-	<div class="panel panel-default">
-	<div class="panel-heading"><h4>特集記事</h4></div>
+	<h4>特集記事</h4>
 	<?php foreach($blogs as $blog): ?>
-		<ul class="list-group">
-			<li class = "blog list-group-item">-<?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
+		<ul>
+			<li><?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
 		</ul>
 	<?php endforeach; ?>
-	</div>
 
 	<h4>現在開催中の催事</h4>
 	<?php $currentDepart = ""; ?>
@@ -56,7 +54,7 @@
 			<tbody>
 				<tr>
 					<td rowspan="2"></td>
-					<th class="text-center" colspan="2"><?php echo substr($salesRegion['SalesRegion']['month'],0,4) ?>年<?php echo substr($salesRegion['SalesRegion']['month'],5,2); ?>月</th>
+					<th class="text-center" colspan="2"><?php echo substr($salesRegion['SalesRegion']['month'],0,4) ?>年<?php echo substr($salesRegion['SalesRegion']['month'],4); ?>月</th>
 				</tr>
 				<tr>
 					<th class="text-center">売上</th>

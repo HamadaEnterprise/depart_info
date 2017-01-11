@@ -10,6 +10,18 @@
 		<?php echo $blog['Blog']['text']; ?>
 		<?php if($key != count($blogs) - 1): ?>
 			<p class = "deliminator"><?php echo '* * *' ?></p>
+			<?php if($key == 0): ?>
+				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- departInfo -->
+					<ins class="adsbygoogle"
+					     style="display:block"
+					     data-ad-client="ca-pub-2860154430701982"
+					     data-ad-slot="1212603155"
+					     data-ad-format="auto"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+			<?php endif; ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
 
@@ -36,13 +48,15 @@
 		</table>
 	</div>
 
+
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- departInfo -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 横長スモール -->
 <ins class="adsbygoogle"
-     style="display:block"
+     style="display:inline-block;width:320px;height:100px"
      data-ad-client="ca-pub-2860154430701982"
-     data-ad-slot="1212603155"
-     data-ad-format="auto"></ins>
+     data-ad-slot="7020132753"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
@@ -69,6 +83,9 @@
 	#blogVillage, #blogRanking{
 		display: inline;
 		margin-bottom: 10px;
+	}
+	.blog-images{
+		max-width: 100%;
 	}
 
 </style>

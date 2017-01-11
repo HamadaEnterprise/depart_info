@@ -72,6 +72,9 @@
 		display: inline;
 		margin-bottom: 10px;
 	}
+	.blog-images{
+		max-width: 100%;
+	}
 	
 
 </style>

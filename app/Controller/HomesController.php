@@ -700,7 +700,7 @@ class HomesController extends AppController {
 		$str = preg_replace('/[^0-9]/', ' ', $str);
         $str = preg_replace('/\s(?=\s)/', '', $str);
         $str = trim($str);
-        $daysArray = split(' ', $str);
+        $daysArray = explode(' ', $str);
         return $daysArray;
 	}
 

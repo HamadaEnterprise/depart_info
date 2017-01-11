@@ -75,7 +75,7 @@ body{
 }
 .container{
 	background-color: white;
-	border:thin solid;
+	/*border:thin solid;*/
 	border-color: #d3d3d3;
 }
 .navbar{
@@ -105,4 +105,7 @@ body{
 .blog-image-small{
 	width: 120px;
 	height: 120px;
+}
+.blog-images{
+	max-width: 100%;
 }

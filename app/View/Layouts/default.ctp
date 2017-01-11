@@ -32,33 +32,36 @@ echo $this->fetch('css');
   ga('send', 'pageview');
 
 </script>
+<style type="text/css">
+	.collapse.in{
+		background-color: rgb(255,255,255);
+	}
+</style>
 
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/">デパート	情報百貨</a>
-			</div>
-
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">トップ<span class="sr-only">(current)</span></a></li>
-					<li <?php if($naviType=="calendar"):?>class="active"<?php endif;?>><a href="/calendar?month=this">催事カレンダー</a></li>
-					<li <?php if($naviType=="statistics"):?>class="active"<?php endif;?>><a href="/statistics">統計情報</a></li>
-					<li <?php if($naviType=="departs"):?>class="active"<?php endif;?>><a href="/departs" title="">掲載デパート一覧</a></li>
-					<li <?php if($naviType=="blog"):?>class="active"<?php endif;?>><a href="/blog" title="">特集記事</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+<div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="../" class="navbar-brand">デパート	情報百貨</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li <?php if($naviType=="top"):?>class="active"<?php endif;?>><a href="/">トップ<span class="sr-only">(current)</span></a></li>
+			<li <?php if($naviType=="calendar"):?>class="active"<?php endif;?>><a href="/calendar?month=this">催事カレンダー</a></li>
+			<li <?php if($naviType=="statistics"):?>class="active"<?php endif;?>><a href="/statistics">統計情報</a></li>
+			<li <?php if($naviType=="departs"):?>class="active"<?php endif;?>><a href="/departs" title="">掲載デパート一覧</a></li>
+			<li <?php if($naviType=="blog"):?>class="active"<?php endif;?>><a href="/blog" title="">特集記事</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 	<div class="container">
 
 		<?php echo $this->Session->flash(); ?>
