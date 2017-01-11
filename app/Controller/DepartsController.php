@@ -27,6 +27,7 @@ class DepartsController extends AppController {
 			'conditions' => array('region' => '4', 'is_deleted' => 0),
 			'order' => array('style asc')
 			));
+		$this->set('title_for_layout', '掲載百貨店一覧｜デパート情報百貨');
 		$this->set(compact('tokyoDeparts', 'kanagawaDeparts', 'saitamaDeparts', 'chibaDeparts'));
 	}
 
@@ -63,6 +64,8 @@ class DepartsController extends AppController {
 		print_r($selectedDepart);
 		echo "</pre>";
 		exit;*/
+
+		$this->set('title_for_layout', $selectedDepart['Depart']['name'] . '｜デパート情報百貨');
 		$this->set(compact('selectedDepart', 'selectedDepartEvents'));
 		}
 	}

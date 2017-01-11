@@ -8,7 +8,6 @@ class CalendarController extends AppController {
 		'Region'
 	);
 
-
 	public function index() {
 		//ナビゲーションの設定
 		$this->set("naviType","calendar");
@@ -73,6 +72,7 @@ class CalendarController extends AppController {
 		foreach ($categories as $key => $category) {
 			$sortedCategories[$category['Category']['id']] = $category['Category']['name'];
 		}
+		$this->set('title_for_layout', '百貨店催事カレンダー｜デパート情報百貨');
 		$this->set(compact('sortedEvents', 'thisMonth', 'sortedCategories', 'selectedCategory', 'sortedRegion', 'selectedRegion', 'maxDay'));
 
 	}

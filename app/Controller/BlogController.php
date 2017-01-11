@@ -17,9 +17,13 @@ class BlogController extends AppController {
 				'limit' => 5
 			));
 
-		$blogsTitle = "最新記事一覧";
+		$blogsTitle = "デパート情報百貨最新記事一覧";
+
+		$this->set('title_for_layout', $blogsTitle);
+
+		$pastBlogsDate = $this->pastBlogsDate();
 		
-		$this->set(compact('blogs', "blogsTitle"));
+		$this->set(compact('blogs', "blogsTitle", 'pastBlogsDate'));
 	}
 
 	//ブログ記事が選択されたときに呼び出される。当該ブログを取得し、ブログ一覧を取得する。
@@ -38,12 +42,9 @@ class BlogController extends AppController {
 
 		$pastBlogsDate = $this->pastBlogsDate();
 
-		// echo "<pre>";
-		// print_r($pastBlogsDate);
-		// echo "</pre>";
-		// exit;
+		$title_for_layout = $selectedBlog['Blog']['title'];
 
-		
+		$this->set('title_for_layout', $title_for_layout);
 
 		$this->set(compact('selectedBlog', 'blogs', 'pastBlogsDate'));
 
@@ -57,9 +58,11 @@ class BlogController extends AppController {
 				'conditions' => array('DATE_FORMAT(date, "%Y-%m")' => $selectedPastDate)
 			));
 
-		$blogsTitle = str_replace("-", "年", $selectedPastDate) . "月の記事一覧";
+		$blogsTitle = str_replace("-", "年", $selectedPastDate) . "月のデパート情報百貨記事一覧";
 
-		$this->set(compact('blogs', "blogsTitle"));
+		$pastBlogsDate = $this->pastBlogsDate();
+
+		$this->set(compact('blogs', "blogsTitle", 'pastBlogsDate'));
 
 		$this->render('index');
 	}

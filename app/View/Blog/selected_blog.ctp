@@ -2,15 +2,10 @@
 <div class="col-sm-8 leftContent">
 	
 	<p class = "articleDate"><?php echo $selectedBlog['Blog']['date'] ?> </p>
-	<h4 class = "articleTitle"><?php echo $selectedBlog['Blog']['title']; ?></h4>
+	<h1 class = "articleTitle"><?php echo $selectedBlog['Blog']['title']; ?></h1>
 	<hr width="80%" align="left">
-	
-
-
 
 	<?php echo $selectedBlog['Blog']['text']; ?>
-	
-
 
 </div>
 
@@ -43,23 +38,24 @@
 	</div>
 
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- departInfo -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2860154430701982"
-     data-ad-slot="1212603155"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+	<!-- departInfo -->
+	<ins class="adsbygoogle"
+	style="display:block"
+	data-ad-client="ca-pub-2860154430701982"
+	data-ad-slot="1212603155"
+	data-ad-format="auto"></ins>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
 </div>
 <style type="text/css">
 	h3.title{
 		text-align: center;
 	}
-	h4.articleTitle{
+	h1.articleTitle{
 		text-align: left;
 		margin-top: 0;
+		font-size: 24px;
 	}
 	p.articleDate{
 		margin-bottom: 0;
@@ -75,6 +71,4 @@
 	.blog-images{
 		max-width: 100%;
 	}
-	
-
 </style>

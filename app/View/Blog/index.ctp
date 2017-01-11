@@ -1,7 +1,7 @@
 
 <div class="col-sm-8 leftContent">
 	
-	<h3 class="title"><?php echo $blogsTitle ?></h3>	
+	<h1 class="title"><?php echo $blogsTitle ?></h1>
 
 	<?php foreach($blogs as $key => $blog): ?>
 		<p class = "articleDate"><?php echo $blog['Blog']['date'] ?> </p>
@@ -12,15 +12,15 @@
 			<p class = "deliminator"><?php echo '* * *' ?></p>
 			<?php if($key == 0): ?>
 				<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-					<!-- departInfo -->
-					<ins class="adsbygoogle"
-					     style="display:block"
-					     data-ad-client="ca-pub-2860154430701982"
-					     data-ad-slot="1212603155"
-					     data-ad-format="auto"></ins>
-					<script>
+				<!-- departInfo -->
+				<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-client="ca-pub-2860154430701982"
+				data-ad-slot="1212603155"
+				data-ad-format="auto"></ins>
+				<script>
 					(adsbygoogle = window.adsbygoogle || []).push({});
-					</script>
+				</script>
 			<?php endif; ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
@@ -37,6 +37,14 @@
 			</ul>
 		<?php endforeach; ?>
 	</div>
+	<div class = "past-blogs">
+		<h4>過去記事</h4>
+		<?php foreach ($pastBlogsDate as $key => $date) :?>
+			<ul>
+				<li><a href="/blog/pastBlogs?date=<?php echo $date[0]['registedTime'] ?>" title=""><?php echo $date[0]['registedTime'] ?>(<?php echo $date[0]['count'] ?>)</a></li>
+			</ul>		
+		<?php endforeach ?>
+	</div>
 	<div　class = "blog-rankings">
 		<table class = "blog-rankings-table">
 			<tbody>
@@ -48,22 +56,23 @@
 		</table>
 	</div>
 
-
 	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- departInfo -->
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 横長スモール -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:320px;height:100px"
-     data-ad-client="ca-pub-2860154430701982"
-     data-ad-slot="7020132753"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+	<!-- departInfo -->
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<!-- 横長スモール -->
+	<ins class="adsbygoogle"
+	style="display:inline-block;width:320px;height:100px"
+	data-ad-client="ca-pub-2860154430701982"
+	data-ad-slot="7020132753"></ins>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	<div id='inner_space'></div><script type='text/javascript' src='//blogparts.blogmura.com/pts/js/parts_view.js' charset='UTF-8'></script><script type='text/javascript'>parts(1507586,"FFFFFF","160","001eff",600000,"59","572","outrank","http://depart-info.com/blog", 2, 0, "F7F7F7", "001eff");</script>
 </div>
 <style type="text/css">
-	h3.title{
+	h1.title{
 		text-align: center;
+		font-size: 24px;
 	}
 	h4.articleTitle{
 		text-align: left;

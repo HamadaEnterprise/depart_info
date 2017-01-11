@@ -54,12 +54,7 @@ class StatisticsController  extends AppController {
 				)
 			);
 
-		/*echo "<pre>";
-		print_r($months);
-		echo "</pre>";
-		exit;*/
-
-		
+		$this->set('title_for_layout', '全国百貨店売上統計｜デパート情報百貨');
 		$this->set(compact('regionColumns', 'itemColumns', 'salesRegion', 'salesItem', 'months', 'selectedMonth', 'selectedMonthID'));
 
 	}
