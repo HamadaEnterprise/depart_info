@@ -11,7 +11,6 @@ class BlogController extends AppController {
 	}
 	public function index() {
 		
-
 		$blogs = $this->Blog->find('all', array(
 				'order' => array('date' => 'desc'),
 				'limit' => 5
@@ -22,8 +21,10 @@ class BlogController extends AppController {
 		$this->set('title_for_layout', $blogsTitle);
 
 		$pastBlogsDate = $this->pastBlogsDate();
+
+		$description = "百貨店に関するニュースを一週間まとめてお届け、それ以外にも売上速報や気になるニュースを取り上げています。";
 		
-		$this->set(compact('blogs', "blogsTitle", 'pastBlogsDate'));
+		$this->set(compact('blogs', "blogsTitle", 'pastBlogsDate', 'description'));
 	}
 
 	//ブログ記事が選択されたときに呼び出される。当該ブログを取得し、ブログ一覧を取得する。
@@ -44,9 +45,15 @@ class BlogController extends AppController {
 
 		$title_for_layout = $selectedBlog['Blog']['title'];
 
+		$description = mb_substr(strip_tags($selectedBlog['Blog']['text']),0 , 125);
+
+		$description = str_replace(PHP_EOL, '', $description);
+
+		$description = str_replace('"', '"', $description);
+
 		$this->set('title_for_layout', $title_for_layout);
 
-		$this->set(compact('selectedBlog', 'blogs', 'pastBlogsDate'));
+		$this->set(compact('selectedBlog', 'blogs', 'pastBlogsDate', 'description'));
 
 	}
 
@@ -61,6 +68,8 @@ class BlogController extends AppController {
 		$blogsTitle = str_replace("-", "年", $selectedPastDate) . "月のデパート情報百貨記事一覧";
 
 		$pastBlogsDate = $this->pastBlogsDate();
+
+		$description = $blogsTitle . "百貨店に関するニュースを一週間まとめてお届け、それ以外にも売上速報や気になるニュースを取り上げています。";
 
 		$this->set(compact('blogs', "blogsTitle", 'pastBlogsDate'));
 
