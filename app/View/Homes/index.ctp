@@ -29,7 +29,8 @@
 			<li><?php echo $blog['Blog']['date'] ?>&nbsp;&nbsp;<a href="/blog/selectedBlog?id=<?php echo $blog['Blog']['id'] ?>"><?php echo $blog['Blog']['title'] ?> </a></li>
 		</ul>
 	<?php endforeach; ?>
-
+	<a href="https://twitter.com/departinformat1" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @departinformat1</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 	<h4>現在開催中の催事</h4>
 	<?php $currentDepart = ""; ?>
 	<?php foreach ($events as $key => $event): ?>

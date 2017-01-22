@@ -6,7 +6,10 @@
 	<hr width="80%" align="left">
 
 	<?php echo $selectedBlog['Blog']['text']; ?>
-
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="departinformat1" data-size="large" data-hashtags="百貨店">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<a href="https://twitter.com/departinformat1" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @departinformat1</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </div>
 
 <div class="col-sm-4 rightContent">
