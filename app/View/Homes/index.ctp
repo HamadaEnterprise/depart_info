@@ -88,7 +88,32 @@
 	</div>
 	<h4 style="clear:both;">百貨店TOPニュース</h4>
 	
-	<ul id="feed"></ul>
+	<ul id="feed">
+   <?php
+      $rss = simplexml_load_file("https://news.google.com/news?ned=us&ie=UTF-8&oe=UTF-8&q=%E7%99%BE%E8%B2%A8%E5%BA%97&output=rss&num=30&hl=ja");
+      $imageNews="";
+      $stringNews="";
+      foreach($rss->channel->item as $item){
+        $title = $item->title;
+        $date = date("Y年 n月 j日", strtotime($item->pubDate));
+        $link = $item->link;
+        $description = mb_strimwidth (strip_tags($item->description), 0 , 50, "…Read More", "utf-8");
+
+        preg_match('/<img.*?src=(["\'])(.+?)\1.*?>/i', $item->description, $entryimg);
+        $src = null;
+        if(isset($entryimg[2]))$src = $entryimg[2];
+       
+
+
+        if($src){
+          $imageNews = $imageNews . '<div class = "media"><a class = "media-left" href="' . $link . '" target="_blank"><img src="' . $src . '" alt=""></a><div class = "media-body"><a href="' . $link . '">' . $title. ' </a></div></div>';
+        }else{
+          $stringNews = $stringNews . '<li><a href="' . $link . '" target="_blank"><span class="title">' . $title. ' ; ?></span></a></li>';
+        }
+     }
+     echo $imageNews . $stringNews;
+      ?>
+  </ul>
 	<div id = "twitter">
 		<a class="twitter-timeline" data-width="300" data-height="800" data-theme="light" href="https://twitter.com/departinformat1/lists/departs">A Twitter List by departinformat1</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 	</div>
@@ -103,30 +128,3 @@
 	</div>
 </div>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script type="text/javascript">
-google.load("feeds", "1");
-function initialize() {
-	var feedurl = "https://news.google.com/news?ned=us&ie=UTF-8&oe=UTF-8&q=%E7%99%BE%E8%B2%A8%E5%BA%97&output=rss&num=30&hl=ja";
-	var feed = new google.feeds.Feed(feedurl);
-	feed.setNumEntries(12);
-	feed.load(function (result){
-		if (!result.error){
-			var imageRss = "";
-			var imageLessRss = "";
-			for (var i = 0; i < result.feed.entries.length; i++) {
-				var entry = result.feed.entries[i];
-				var imgsrc = entry.content.match(/src="(.*?)"/igm);
-				if(imgsrc){
-					imageRss += '<div class = "media"><a class = "media-left" href="' + entry.link + '" target="_blank"><img ' + imgsrc + '></a><div class = "media-body"><a class = "media-left" href="' + entry.link + '" target="_blank">' + entry.title + '</a></div></div>';
-				}else{
-					imageLessRss += '<li><a href="' + entry.link + '" target="_blank">' + entry.title + '</a></li>';
-				}
-			}
-			$('#feed').append(imageRss);
-			$('#feed').append(imageLessRss);			
-		}
-	});
-}
-google.setOnLoadCallback(initialize);
-</script>
